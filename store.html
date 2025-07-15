@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tienda en Línea</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <h2 class="mb-4 text-center">Catálogo de Productos</h2>
+        <form id="formPedido" action="mailto:ventas@tuempresa.com" method="POST" enctype="text/plain">
+            <div class="row">
+                <!-- Producto 1 -->
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/400x200?text=Producto+1" class="card-img-top" alt="Producto 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 1</h5>
+                            <p class="card-text">Descripción breve del producto 1.</p>
+                            <p><strong>$450.00</strong></p>
+                            <input type="checkbox" name="Producto" value="Producto 1"> Agregar
+                        </div>
+                    </div>
+                </div>
+                <!-- Producto 2 -->
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/400x200?text=Producto+2" class="card-img-top" alt="Producto 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 2</h5>
+                            <p class="card-text">Descripción breve del producto 2.</p>
+                            <p><strong>$320.00</strong></p>
+                            <input type="checkbox" name="Producto" value="Producto 2"> Agregar
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mt-5">Datos de contacto</h3>
+            <div class="form-group">
+                <input type="text" name="Nombre" class="form-control" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="Correo" class="form-control" placeholder="Correo electrónico" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" name="Teléfono" class="form-control" placeholder="Teléfono de contacto" required>
+            </div>
+            <div class="form-group">
+                <textarea name="Dirección" rows="3" class="form-control" placeholder="Dirección de envío" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Enviar pedido</button>
+        </form>
+    </div>
+</body>
+</html>
