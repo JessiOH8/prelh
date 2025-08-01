@@ -329,11 +329,11 @@
     <h1 class="mb-5">Empresas que confían en nosotros</h1>
 
     <div class="owl-carousel client-carousel">
-      <div class="px-4"><img src="img/clientes/cliente1.png" alt="Cliente 1" class="img-fluid"></div>
-      <div class="px-4"><img src="img/clientes/cliente2.png" alt="Cliente 2" class="img-fluid"></div>
-      <div class="px-4"><img src="img/clientes/cliente3.png" alt="Cliente 3" class="img-fluid"></div>
-      <div class="px-4"><img src="img/clientes/cliente4.png" alt="Cliente 4" class="img-fluid"></div>
-      <div class="px-4"><img src="img/clientes/cliente5.png" alt="Cliente 5" class="img-fluid"></div>
+      <div class="px-4"><img src="img/LOGO PRELH.png" alt="Cliente 1" class="img-fluid"></div>
+      <div class="px-4"><img src="img/LOGO PRELH.png" alt="Cliente 2" class="img-fluid"></div>
+      <div class="px-4"><img src="img/LOGO PRELH.png" alt="Cliente 3" class="img-fluid"></div>
+      <div class="px-4"><img src="img/LOGO PRELH.png" alt="Cliente 4" class="img-fluid"></div>
+      <div class="px-4"><img src="img/LOGO PTRLH.png" alt="Cliente 5" class="img-fluid"></div>
     </div>
   </div>
 </div>
@@ -521,8 +521,24 @@
   });
 </script>
 </body>
-
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script>
+  $(".client-carousel").owlCarousel({
+    autoplay: true,
+    smartSpeed: 1000,
+    margin: 30,
+    loop: true,
+    dots: false,
+    responsive: {
+      0: { items: 2 },
+      576: { items: 3 },
+      768: { items: 4 },
+      992: { items: 5 }
+    }
+  });
+</script>
 </html>
+
 
 
 
