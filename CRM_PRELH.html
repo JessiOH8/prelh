@@ -23,6 +23,170 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+
+	  <script>
+  // ===== Utilidades de Cotizaciones =====
+  function formatoMoneda(n) {
+    const v = Number(n || 0);
+    return v.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2 });
+  }
+  function generarFolio() {
+    const d = new Date();
+    const pad = x => String(x).padStart(2,'0');
+    return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+  }
+  function generarCotizacion() {
+    const cliente = document.getElementById('clienteCotizacion').value.trim();
+    const producto = document.getElementById('productoCotizacion').value.trim();
+    const cantidad = Number(document.getElementById('cantidadCotizacion').value || 0);
+    const precioUnit = Number(document.getElementById('precioUnitarioCotizacion').value || 0);
+    const ivaOn = document.getElementById('aplicarIVA').checked;
+    if (!cliente || !producto || cantidad <= 0) { alert('Completa cliente, producto y cantidad válida.'); return; }
+
+    const subtotal = cantidad * precioUnit;
+    const iva = ivaOn ? subtotal * 0.16 : 0;
+    const total = subtotal + iva;
+    const folio = generarFolio();
+    const fecha = new Date().toLocaleDateString('es-MX', { year:'numeric', month:'long', day:'2-digit' });
+
+    const html = `
+      <div id="cotizacionImprimible" class="cotizacion-doc">
+        <div class="cotizacion-header">
+          <img class="cotizacion-logo" alt="Logo" src="">
+          <div class="cotizacion-empresa">
+            <h1>PROVEEDORA ELÉCTRICA DE LA HUASTECA</h1>
+            <p><strong>Dirección:</strong> Av. Cuauhtémoc No. 44, Col. Adolfo Ruiz Cortines, Tuxpan, Veracruz.</p>
+            <p><strong>Teléfonos:</strong> 232 112 8020 / 783 142 8280 &nbsp; | &nbsp; <strong>Correo:</strong> prelhpr@gmail.com</p>
+          </div>
+        </div>
+        <div class="cotizacion-meta">
+          <div><strong>Folio:</strong> ${folio}</div>
+          <div><strong>Fecha:</strong> ${fecha}</div>
+        </div>
+        <div class="cotizacion-cliente"><strong>Cliente:</strong> ${cliente}</div>
+        <table class="cotizacion-tabla">
+          <thead><tr><th>Cantidad</th><th>Concepto</th><th>Precio unitario</th><th>Importe</th></tr></thead>
+          <tbody><tr><td>${cantidad}</td><td>${producto}</td><td>${formatoMoneda(precioUnit)}</td><td>${formatoMoneda(subtotal)}</td></tr></tbody>
+        </table>
+        <table class="cotizacion-totales">
+          <tr><td>Subtotal:</td><td>${formatoMoneda(subtotal)}</td></tr>
+          <tr><td>IVA (16%):</td><td>${formatoMoneda(iva)}</td></tr>
+          <tr><td>Total:</td><td>${formatoMoneda(total)}</td></tr>
+        </table>
+        <div class="cotizacion-footer">* Precios en MXN. Vigencia 15 días salvo indicación distinta.</div>
+      </div>`;
+    document.getElementById('resultadoCotizacion').innerHTML = html;
+    document.getElementById('btnImprimir').classList.remove('d-none');
+  }
+  function imprimirCotizacion() {
+    const contenido = document.getElementById('cotizacionImprimible')?.outerHTML || '';
+    if (!contenido) { alert('Genera la cotización antes de imprimir.'); return; }
+    const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
+      .map(el => el.outerHTML).join('\n');
+    const win = window.open('', '', 'height=900,width=1000');
+    win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Cotización - PRELH</title>${styles}</head><body>${contenido}</body></html>`);
+    win.document.close(); win.focus(); win.print();
+  }
+
+  // ===== CLIENTES =====
+  function mostrarFormularioCliente() {
+    const f = document.getElementById('formularioCliente');
+    f.classList.toggle('d-none');
+  }
+  function agregarCliente() {
+    const empresa = document.getElementById('empresaInput').value.trim();
+    const giro    = document.getElementById('giroInput').value.trim();
+    const contacto= document.getElementById('contactoInput').value.trim();
+    const telefono= document.getElementById('telefonoInput').value.trim();
+    const correo  = document.getElementById('correoInput').value.trim();
+    if (!empresa || !giro || !contacto) { alert('Completa empresa, giro y contacto.'); return; }
+    const tbody = document.getElementById('cuerpoClientes');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${tbody.rows.length+1}</td><td>${empresa}</td><td>${giro}</td><td>${contacto}</td><td>${telefono}</td><td>${correo}</td>`;
+    tbody.appendChild(tr);
+    // limpiar y ocultar
+    document.getElementById('empresaInput').value = '';
+    document.getElementById('giroInput').value = '';
+    document.getElementById('contactoInput').value = '';
+    document.getElementById('telefonoInput').value = '';
+    document.getElementById('correoInput').value = '';
+    document.getElementById('formularioCliente').classList.add('d-none');
+  }
+  function filtrarClientes() {
+    const q = document.getElementById('buscadorClientes').value.toLowerCase();
+    document.querySelectorAll('#tablaClientes tbody tr').forEach(tr => {
+      tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  }
+
+  // ===== PROVEEDORES (localStorage + edición) =====
+  const PROV_KEY = 'proveedores';
+  const getProveedores = () => JSON.parse(localStorage.getItem(PROV_KEY) || '[]');
+  const setProveedores = (arr) => localStorage.setItem(PROV_KEY, JSON.stringify(arr));
+
+  function mostrarFormularioProveedor() {
+    document.getElementById('formularioProveedor').classList.toggle('d-none');
+  }
+  function agregarProveedor() {
+    const nombre   = document.getElementById('nombreProveedor').value.trim();
+    const giro     = document.getElementById('giroProveedor').value.trim();
+    const contacto = document.getElementById('contactoProveedor').value.trim();
+    const telefono = document.getElementById('telefonoProveedor').value.trim();
+    const correo   = document.getElementById('correoProveedor').value.trim();
+    if (!nombre || !contacto) { alert('Completa nombre y contacto.'); return; }
+    const arr = getProveedores();
+    arr.push({ nombre, giro, contacto, telefono, correo });
+    setProveedores(arr);
+    document.getElementById('formularioProveedor').classList.add('d-none');
+    document.getElementById('nombreProveedor').value = '';
+    document.getElementById('giroProveedor').value = '';
+    document.getElementById('contactoProveedor').value = '';
+    document.getElementById('telefonoProveedor').value = '';
+    document.getElementById('correoProveedor').value = '';
+    renderizarProveedores();
+  }
+  function renderizarProveedores() {
+    const arr = getProveedores();
+    const tbody = document.getElementById('cuerpoProveedores');
+    tbody.innerHTML = '';
+    arr.forEach((p, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td contenteditable onblur="actualizarProveedor(${i}, 'nombre', this.textContent)">${p.nombre||''}</td>
+        <td contenteditable onblur="actualizarProveedor(${i}, 'giro', this.textContent)">${p.giro||''}</td>
+        <td contenteditable onblur="actualizarProveedor(${i}, 'contacto', this.textContent)">${p.contacto||''}</td>
+        <td contenteditable onblur="actualizarProveedor(${i}, 'telefono', this.textContent)">${p.telefono||''}</td>
+        <td contenteditable onblur="actualizarProveedor(${i}, 'correo', this.textContent)">${p.correo||''}</td>
+        <td><button class="btn btn-sm btn-outline-secondary" onclick="alert('Edita directamente en la celda. Se guarda al salir.')">📝</button></td>`;
+      tbody.appendChild(tr);
+    });
+  }
+  function actualizarProveedor(i, campo, valor) {
+    const arr = getProveedores();
+    if (!arr[i]) return;
+    arr[i][campo] = (valor || '').trim();
+    setProveedores(arr);
+  }
+  function filtrarProveedores() {
+    const q = document.getElementById('buscadorProveedores').value.toLowerCase();
+    document.querySelectorAll('#tablaProveedores tbody tr').forEach(tr => {
+      tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  }
+  function precargarProveedoresDemo() {
+    if (getProveedores().length === 0) {
+      setProveedores([{ nombre: 'Suministros del Golfo, S.A. de C.V.', giro: 'Material eléctrico', contacto: 'Araceli Pérez', telefono: '232 123 4567', correo: 'ventas@sugolfo.mx' }]);
+    }
+  }
+
+  // Inicialización al cargar
+  document.addEventListener('DOMContentLoaded', () => {
+    precargarProveedoresDemo();
+    renderizarProveedores();
+  });
+</script>
+
 </head>
 
 <body>
@@ -183,7 +347,7 @@
     <h1>PORTAL PRELH</h1>
   </header>-->
 
-  <nav>
+<!--  <nav>
     <button onclick="mostrarSeccion('cotizaciones')" class="ghost">Cotizaciones</button>
     <button onclick="mostrarSeccion('inventarios')" class="ghost">Inventarios</button>
     <button onclick="mostrarSeccion('clientes')" class="ghost">Clientes</button>
@@ -191,374 +355,233 @@
     <button onclick="mostrarSeccion('catalogo')" class="ghost" title="Para después">Catálogo (próx.)</button>
   </nav>
 
-  <!-- === COTIZACIONES === -->
-  <div id="cotizaciones" class="section active">
-    <h2>Generar Cotización</h2>
-
-    <div class="form-group">
-      <label>Nombre del Cliente:</label>
-      <input type="text" id="clienteCotizacion" />
-    </div>
-    <div class="form-group">
-      <label>Producto / Concepto:</label>
-      <input type="text" id="productoCotizacion" />
-    </div>
-    <div class="form-group">
-      <label>Cantidad:</label>
-      <input type="number" id="cantidadCotizacion" min="1" value="1" />
-    </div>
-    <div class="form-group">
-      <label>Precio unitario (MXN):</label>
-      <input type="number" id="precioUnitarioCotizacion" min="0" step="0.01" value="0.00" />
-    </div>
-    <div class="form-group" style="display:flex; gap:1em; align-items:center;">
-      <label><input type="checkbox" id="aplicarIVA" checked /> Aplicar IVA 16%</label>
-    </div>
-
-    <button onclick="generarCotizacion()" class="primary">Generar</button>
-    <span class="hint">Puedes imprimir o guardar como PDF después de generar.</span>
-
-    <div id="resultadoCotizacion" style="margin-top: 1em;"></div>
-    <button onclick="imprimirCotizacion()" style="margin-top: 1em; display: none;" id="btnImprimir" class="ghost">Imprimir / Guardar PDF</button>
+<!-- ======= CRM PRELH ======= -->
+<div class="container my-4">
+  <!-- Subtítulo opcional -->
+  <div class="crm-subheader bg-white shadow-sm rounded p-3 mb-3">
+    <h2 class="h4 m-0 text-primary">Panel CRM — PRELH</h2>
   </div>
 
-  <!-- === INVENTARIOS (demostrativo simple) === -->
-  <div id="inventarios" class="section">
-    <h2>Inventario</h2>
-    <table id="tablaInventario">
-      <thead>
-        <tr>
-          <th>Producto</th>
-          <th>Cantidad</th>
-          <th>Modificar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Interruptor termomagnético 2P, 60A</td>
-          <td><input type="number" value="15"></td>
-          <td><button onclick="alert('Cantidad actualizada')">Guardar</button></td>
-        </tr>
-        <tr>
-          <td>Cable aluminio 4 AWG</td>
-          <td><input type="number" value="80"></td>
-          <td><button onclick="alert('Cantidad actualizada')">Guardar</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- Menú de secciones en estilo Bootstrap (nav-pills) -->
+  <ul class="nav nav-pills crm-tabs mb-3" id="crmTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="tab-cotizaciones" data-toggle="pill" href="#sec-cotizaciones" role="tab" aria-controls="sec-cotizaciones" aria-selected="true">
+        <i class="fas fa-file-invoice-dollar mr-1"></i> Cotizaciones
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="tab-inventarios" data-toggle="pill" href="#sec-inventarios" role="tab" aria-controls="sec-inventarios" aria-selected="false">
+        <i class="fas fa-boxes mr-1"></i> Inventarios
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="tab-clientes" data-toggle="pill" href="#sec-clientes" role="tab" aria-controls="sec-clientes" aria-selected="false">
+        <i class="fas fa-user-friends mr-1"></i> Clientes
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="tab-proveedores" data-toggle="pill" href="#sec-proveedores" role="tab" aria-controls="sec-proveedores" aria-selected="false">
+        <i class="fas fa-truck-loading mr-1"></i> Proveedores
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" title="Próximamente">
+        <i class="fas fa-store mr-1"></i> Catálogo (próx.)
+      </a>
+    </li>
+  </ul>
 
-  <!-- === CLIENTES === -->
-  <div id="clientes" class="section">
-    <h2>Clientes</h2>
-
-    <!-- Buscador -->
-    <input type="text" id="buscadorClientes" placeholder="Buscar cliente..." onkeyup="filtrarClientes()" style="width: 100%; padding: 0.5rem; margin-bottom: 1rem;" />
-
-    <!-- Botón para mostrar el formulario -->
-    <button onclick="mostrarFormularioCliente()" style="margin-bottom: 1rem;">+ Agregar nuevo cliente</button>
-
-    <!-- Formulario oculto -->
-    <div id="formularioCliente" style="display: none; margin-bottom: 1rem; background: #eef; padding: 1rem; border-radius: 8px;">
-      <div class="form-group"><label>Empresa:</label><input type="text" id="empresaInput" /></div>
-      <div class="form-group"><label>Giro:</label><input type="text" id="giroInput" /></div>
-      <div class="form-group"><label>Contacto:</label><input type="text" id="contactoInput" /></div>
-      <div class="form-group"><label>Teléfono:</label><input type="text" id="telefonoInput" /></div>
-      <div class="form-group"><label>Correo:</label><input type="text" id="correoInput" /></div>
-      <button onclick="agregarCliente()" class="primary">Guardar cliente</button>
-    </div>
-
-    <!-- Tabla -->
-    <table id="tablaClientes">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Empresa</th>
-          <th>Giro</th>
-          <th>Contacto</th>
-          <th>Teléfono</th>
-          <th>Correo</th>
-        </tr>
-      </thead>
-      <tbody id="cuerpoClientes">
-        <tr>
-          <td>1</td>
-          <td>Veca Produce S.A. de C.V.</td>
-          <td>Empacadora</td>
-          <td>Lic. Janneth Olarte</td>
-          <td>232 324 4749 Ext. 241</td>
-          <td>janneth@vecaproduce.mx</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Margarita's Limes S.A. de C.V.</td>
-          <td>Empacadora</td>
-          <td>Lic. Óscar Luna Hernández</td>
-          <td>232 324 5940</td>
-          <td>administrativo@marlim.com.mx</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Wonderful Citrus</td>
-          <td>Empacadora</td>
-          <td>Lic. Frans Molina</td>
-          <td>232 329 3176</td>
-          <td>Frans.J.Molina@wonderful.com</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- === PROVEEDORES (con localStorage, edición y buscador) === -->
-  <div id="proveedores" class="section">
-    <h2>Proveedores</h2>
-
-    <!-- Buscador -->
-    <input type="text" id="buscadorProveedores" placeholder="Buscar proveedor..." onkeyup="filtrarProveedores()" style="width: 100%; padding: 0.5rem; margin-bottom: 1rem;" />
-
-    <!-- Botón para mostrar el formulario -->
-    <button onclick="mostrarFormularioProveedor()" style="margin-bottom: 1rem;">+ Agregar nuevo proveedor</button>
-
-    <!-- Formulario oculto -->
-    <div id="formularioProveedor" style="display: none; margin-bottom: 1rem; background: #eef; padding: 1rem; border-radius: 8px;">
-      <div class="form-group"><label>Nombre:</label><input type="text" id="nombreProveedor" /></div>
-      <div class="form-group"><label>Giro:</label><input type="text" id="giroProveedor" /></div>
-      <div class="form-group"><label>Contacto:</label><input type="text" id="contactoProveedor" /></div>
-      <div class="form-group"><label>Teléfono:</label><input type="text" id="telefonoProveedor" /></div>
-      <div class="form-group"><label>Correo:</label><input type="text" id="correoProveedor" /></div>
-      <button onclick="agregarProveedor()" class="primary">Guardar proveedor</button>
-    </div>
-
-    <!-- Tabla -->
-    <table id="tablaProveedores">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>Giro</th>
-          <th>Contacto</th>
-          <th>Teléfono</th>
-          <th>Correo</th>
-          <th>Editar</th>
-        </tr>
-      </thead>
-      <tbody id="cuerpoProveedores">
-        <!-- Filas dinámicas desde localStorage -->
-      </tbody>
-    </table>
-    <p class="hint">Ejemplo ficticio inicial precargado y editable.</p>
-  </div>
-
-  <!-- === CATÁLOGO (placeholder futuro) === -->
-  <div id="catalogo" class="section">
-    <h2>Catálogo (próximamente)</h2>
-    <p>Esta sección se integrará con la tienda en línea más adelante.</p>
-  </div>
-
-  <script>
-    // --- Navegación de secciones
-    function mostrarSeccion(id) {
-      const secciones = document.querySelectorAll('.section');
-      secciones.forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-
-    // --- CLIENTES: mostrar/ocultar formulario y agregar (sin localStorage por ahora)
-    function mostrarFormularioCliente() {
-      const form = document.getElementById("formularioCliente");
-      form.style.display = form.style.display === "none" ? "block" : "none";
-    }
-    function agregarCliente() {
-      const empresa = document.getElementById("empresaInput").value.trim();
-      const giro = document.getElementById("giroInput").value.trim();
-      const contacto = document.getElementById("contactoInput").value.trim();
-      const telefono = document.getElementById("telefonoInput").value.trim();
-      const correo = document.getElementById("correoInput").value.trim();
-      if (!empresa || !giro || !contacto) { alert("Por favor, completa los campos obligatorios."); return; }
-      const tbody = document.getElementById("cuerpoClientes");
-      const fila = document.createElement("tr");
-      const num = tbody.rows.length + 1;
-      fila.innerHTML = `
-        <td>\${num}</td>
-        <td>\${empresa}</td>
-        <td>\${giro}</td>
-        <td>\${contacto}</td>
-        <td>\${telefono}</td>
-        <td>\${correo}</td>`;
-      tbody.appendChild(fila);
-      // limpiar
-      document.getElementById("empresaInput").value = "";
-      document.getElementById("giroInput").value = "";
-      document.getElementById("contactoInput").value = "";
-      document.getElementById("telefonoInput").value = "";
-      document.getElementById("correoInput").value = "";
-      document.getElementById("formularioCliente").style.display = "none";
-    }
-    function filtrarClientes() {
-      const input = document.getElementById("buscadorClientes").value.toLowerCase();
-      const filas = document.querySelectorAll("#tablaClientes tbody tr");
-      filas.forEach(fila => {
-        const texto = fila.textContent.toLowerCase();
-        fila.style.display = texto.includes(input) ? "" : "none";
-      });
-    }
-
-    // --- PROVEEDORES: localStorage + edición
-    function mostrarFormularioProveedor() {
-      const form = document.getElementById("formularioProveedor");
-      form.style.display = form.style.display === "none" ? "block" : "none";
-    }
-    function getProveedores() {
-      return JSON.parse(localStorage.getItem("proveedores")) || [];
-    }
-    function setProveedores(arr) {
-      localStorage.setItem("proveedores", JSON.stringify(arr));
-    }
-    function agregarProveedor() {
-      const nombre = document.getElementById("nombreProveedor").value.trim();
-      const giro = document.getElementById("giroProveedor").value.trim();
-      const contacto = document.getElementById("contactoProveedor").value.trim();
-      const telefono = document.getElementById("telefonoProveedor").value.trim();
-      const correo = document.getElementById("correoProveedor").value.trim();
-      if (!nombre || !contacto) { alert("Por favor, completa los campos obligatorios."); return; }
-      const proveedores = getProveedores();
-      proveedores.push({ nombre, giro, contacto, telefono, correo });
-      setProveedores(proveedores);
-      document.getElementById("formularioProveedor").style.display = "none";
-      limpiarFormularioProveedor();
-      renderizarProveedores();
-    }
-    function limpiarFormularioProveedor() {
-      document.getElementById("nombreProveedor").value = "";
-      document.getElementById("giroProveedor").value = "";
-      document.getElementById("contactoProveedor").value = "";
-      document.getElementById("telefonoProveedor").value = "";
-      document.getElementById("correoProveedor").value = "";
-    }
-    function renderizarProveedores() {
-      const proveedores = getProveedores();
-      const tbody = document.getElementById("cuerpoProveedores");
-      tbody.innerHTML = "";
-      proveedores.forEach((prov, index) => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-          <td>\${index + 1}</td>
-          <td contenteditable onblur="actualizarProveedor(\${index}, 'nombre', this.textContent)">\${prov.nombre || ""}</td>
-          <td contenteditable onblur="actualizarProveedor(\${index}, 'giro', this.textContent)">\${prov.giro || ""}</td>
-          <td contenteditable onblur="actualizarProveedor(\${index}, 'contacto', this.textContent)">\${prov.contacto || ""}</td>
-          <td contenteditable onblur="actualizarProveedor(\${index}, 'telefono', this.textContent)">\${prov.telefono || ""}</td>
-          <td contenteditable onblur="actualizarProveedor(\${index}, 'correo', this.textContent)">\${prov.correo || ""}</td>
-          <td><button onclick="editarProveedor(\${index})">📝</button></td>`;
-        tbody.appendChild(fila);
-      });
-    }
-    function actualizarProveedor(index, campo, valor) {
-      const proveedores = getProveedores();
-      proveedores[index][campo] = (valor || "").trim();
-      setProveedores(proveedores);
-    }
-    function editarProveedor(index) {
-      alert("Edita directamente en la celda. Se guarda al salir del campo.");
-    }
-    function filtrarProveedores() {
-      const input = document.getElementById("buscadorProveedores").value.toLowerCase();
-      const filas = document.querySelectorAll("#tablaProveedores tbody tr");
-      filas.forEach(fila => {
-        const texto = fila.textContent.toLowerCase();
-        fila.style.display = texto.includes(input) ? "" : "none";
-      });
-    }
-    // Precarga un ejemplo ficticio si no hay datos
-    function precargarProveedoresDemo() {
-      const existentes = getProveedores();
-      if (existentes.length === 0) {
-        setProveedores([
-          { nombre: "Suministros del Golfo, S.A. de C.V.", giro: "Material eléctrico", contacto: "Araceli Pérez", telefono: "232 123 4567", correo: "ventas@sugolfo.mx" },
-        ]);
-      }
-    }
-
-    // --- COTIZACIONES: impresión PDF y cálculo
-    function formatoMoneda(n) {
-      const v = Number(n || 0);
-      return v.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2 });
-    }
-    function generarFolio() {
-      const d = new Date();
-      const pad = (x) => String(x).padStart(2, '0');
-      return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
-    }
-    function generarCotizacion() {
-      const cliente = document.getElementById('clienteCotizacion').value.trim();
-      const producto = document.getElementById('productoCotizacion').value.trim();
-      const cantidad = Number(document.getElementById('cantidadCotizacion').value || 0);
-      const precioUnit = Number(document.getElementById('precioUnitarioCotizacion').value || 0);
-      const ivaOn = document.getElementById('aplicarIVA').checked;
-      if (!cliente || !producto || cantidad <= 0) {
-        alert("Por favor, completa cliente, producto y una cantidad válida."); return;
-      }
-      const subtotal = cantidad * precioUnit;
-      const iva = ivaOn ? subtotal * 0.16 : 0;
-      const total = subtotal + iva;
-      const folio = generarFolio();
-      const fecha = new Date().toLocaleDateString('es-MX', { year:'numeric', month:'long', day:'2-digit' });
-      const html = `
-        <div id="cotizacionImprimible" class="cotizacion-doc">
-          <div class="cotizacion-header">
-            <img class="cotizacion-logo" alt="Logo" src="" />
-            <div class="cotizacion-empresa">
-              <h1>PROVEEDORA ELÉCTRICA DE LA HUASTECA</h1>
-              <p><strong>Dirección:</strong> Av. Cuauhtémoc No. 44, Col. Adolfo Ruiz Cortines, Tuxpan, Veracruz.</p>
-              <p><strong>Teléfonos:</strong> 232 112 8020 / 783 142 8280 &nbsp; | &nbsp; <strong>Correo:</strong> prelhpr@gmail.com</p>
+  <!-- Contenido de pestañas -->
+  <div class="tab-content" id="crmTabContent">
+    <!-- ===== Cotizaciones ===== -->
+    <div class="tab-pane fade show active" id="sec-cotizaciones" role="tabpanel" aria-labelledby="tab-cotizaciones">
+      <div class="crm-card card border-0 shadow-sm">
+        <div class="card-body">
+          <h3 class="h5 text-secondary">Generar Cotización</h3>
+          <div class="form-group">
+            <label>Nombre del Cliente</label>
+            <input type="text" id="clienteCotizacion" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Producto / Concepto</label>
+            <input type="text" id="productoCotizacion" class="form-control" />
+          </div>
+          <div class="form-row">
+            <div class="form-group col-sm-6">
+              <label>Cantidad</label>
+              <input type="number" id="cantidadCotizacion" min="1" value="1" class="form-control" />
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Precio unitario (MXN)</label>
+              <input type="number" id="precioUnitarioCotizacion" min="0" step="0.01" value="0.00" class="form-control" />
             </div>
           </div>
-          <div class="cotizacion-meta">
-            <div><strong>Folio:</strong> ${folio}</div>
-            <div><strong>Fecha:</strong> ${fecha}</div>
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="aplicarIVA" checked>
+              <label class="custom-control-label" for="aplicarIVA">Aplicar IVA 16%</label>
+            </div>
           </div>
-          <div class="cotizacion-cliente"><strong>Cliente:</strong> ${cliente}</div>
-          <table class="cotizacion-tabla">
-            <thead><tr><th>Cantidad</th><th>Concepto</th><th>Precio unitario</th><th>Importe</th></tr></thead>
-            <tbody>
-              <tr><td>${cantidad}</td><td>${producto}</td><td>${formatoMoneda(precioUnit)}</td><td>${formatoMoneda(subtotal)}</td></tr>
-            </tbody>
-          </table>
-          <table class="cotizacion-totales">
-            <tr><td>Subtotal:</td><td>${formatoMoneda(subtotal)}</td></tr>
-            <tr><td>IVA (16%):</td><td>${formatoMoneda(iva)}</td></tr>
-            <tr><td>Total:</td><td>${formatoMoneda(total)}</td></tr>
-          </table>
-          <div class="cotizacion-footer">
-            * Precios en MXN. Cotización sujeta a cambios sin previo aviso. Vigencia 15 días salvo indicación distinta.
-          </div>
-        </div>`;
-      document.getElementById('resultadoCotizacion').innerHTML = html;
-      document.getElementById('btnImprimir').style.display = 'inline-block';
-    }
-    function imprimirCotizacion() {
-      const contenido = document.getElementById('cotizacionImprimible')?.outerHTML || '';
-      if (!contenido) { alert('Genera la cotización antes de imprimir.'); return; }
-      const win = window.open('', '', 'height=800,width=900');
-      // Copiamos estilos inline básicos del documento principal
-      const styles = document.querySelector('style') ? document.querySelector('style').innerHTML : '';
-      win.document.write(`
-        <html>
-          <head>
-            <title>Cotización - PROVEEDORA ELÉCTRICA DE LA HUASTECA</title>
-            <style>${styles}</style>
-          </head>
-          <body>${contenido}</body>
-        </html>`);
-      win.document.close();
-      win.focus();
-      win.print();
-    }
 
-    // --- Inicialización
-    document.addEventListener("DOMContentLoaded", () => {
-      precargarProveedoresDemo();
-      renderizarProveedores();
-    });
-  </script>
-</body>
+          <button onclick="generarCotizacion()" class="btn btn-primary">Generar</button>
+          <small class="text-muted ml-2">Después puedes imprimir o guardar en PDF</small>
+
+          <div id="resultadoCotizacion" class="mt-3"></div>
+          <button onclick="imprimirCotizacion()" class="btn btn-outline-primary mt-2 d-none" id="btnImprimir">
+            <i class="fas fa-print mr-1"></i> Imprimir / Guardar PDF
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Inventarios ===== -->
+    <div class="tab-pane fade" id="sec-inventarios" role="tabpanel" aria-labelledby="tab-inventarios">
+      <div class="crm-card card border-0 shadow-sm">
+        <div class="card-body">
+          <h3 class="h5 text-secondary">Inventario</h3>
+          <div class="table-responsive">
+            <table class="table table-sm table-striped">
+              <thead class="thead-light">
+                <tr>
+                  <th>Producto</th>
+                  <th style="width:140px">Cantidad</th>
+                  <th style="width:120px">Modificar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Interruptor termomagnético 2P, 60A</td>
+                  <td><input type="number" value="15" class="form-control form-control-sm"></td>
+                  <td><button class="btn btn-sm btn-secondary" onclick="alert('Cantidad actualizada')">Guardar</button></td>
+                </tr>
+                <tr>
+                  <td>Cable aluminio 4 AWG</td>
+                  <td><input type="number" value="80" class="form-control form-control-sm"></td>
+                  <td><button class="btn btn-sm btn-secondary" onclick="alert('Cantidad actualizada')">Guardar</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Clientes ===== -->
+    <div class="tab-pane fade" id="sec-clientes" role="tabpanel" aria-labelledby="tab-clientes">
+      <div class="crm-card card border-0 shadow-sm">
+        <div class="card-body">
+          <h3 class="h5 text-secondary">Clientes</h3>
+
+          <input type="text" id="buscadorClientes" placeholder="Buscar cliente..." onkeyup="filtrarClientes()" class="form-control mb-3" />
+
+          <button onclick="mostrarFormularioCliente()" class="btn btn-primary mb-3">+ Agregar nuevo cliente</button>
+
+          <div id="formularioCliente" class="border rounded p-3 bg-light mb-3 d-none">
+            <div class="form-row">
+              <div class="form-group col-md-6"><label>Empresa</label><input type="text" id="empresaInput" class="form-control" /></div>
+              <div class="form-group col-md-6"><label>Giro</label><input type="text" id="giroInput" class="form-control" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4"><label>Contacto</label><input type="text" id="contactoInput" class="form-control" /></div>
+              <div class="form-group col-md-4"><label>Teléfono</label><input type="text" id="telefonoInput" class="form-control" /></div>
+              <div class="form-group col-md-4"><label>Correo</label><input type="text" id="correoInput" class="form-control" /></div>
+            </div>
+            <button onclick="agregarCliente()" class="btn btn-success">Guardar cliente</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-sm table-striped" id="tablaClientes">
+              <thead class="thead-light">
+                <tr>
+                  <th>#</th>
+                  <th>Empresa</th>
+                  <th>Giro</th>
+                  <th>Contacto</th>
+                  <th>Teléfono</th>
+                  <th>Correo</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpoClientes">
+                <tr>
+                  <td>1</td>
+                  <td>Veca Produce S.A. de C.V.</td>
+                  <td>Empacadora</td>
+                  <td>Lic. Janneth Olarte</td>
+                  <td>232 324 4749 Ext. 241</td>
+                  <td>janneth@vecaproduce.mx</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Margarita's Limes S.A. de C.V.</td>
+                  <td>Empacadora</td>
+                  <td>Lic. Óscar Luna Hernández</td>
+                  <td>232 324 5940</td>
+                  <td>administrativo@marlim.com.mx</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Wonderful Citrus</td>
+                  <td>Empacadora</td>
+                  <td>Lic. Frans Molina</td>
+                  <td>232 329 3176</td>
+                  <td>Frans.J.Molina@wonderful.com</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Proveedores ===== -->
+    <div class="tab-pane fade" id="sec-proveedores" role="tabpanel" aria-labelledby="tab-proveedores">
+      <div class="crm-card card border-0 shadow-sm">
+        <div class="card-body">
+          <h3 class="h5 text-secondary">Proveedores</h3>
+
+          <input type="text" id="buscadorProveedores" placeholder="Buscar proveedor..." onkeyup="filtrarProveedores()" class="form-control mb-3" />
+
+          <button onclick="mostrarFormularioProveedor()" class="btn btn-primary mb-3">+ Agregar nuevo proveedor</button>
+
+          <div id="formularioProveedor" class="border rounded p-3 bg-light mb-3 d-none">
+            <div class="form-row">
+              <div class="form-group col-md-6"><label>Nombre</label><input type="text" id="nombreProveedor" class="form-control" /></div>
+              <div class="form-group col-md-6"><label>Giro</label><input type="text" id="giroProveedor" class="form-control" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4"><label>Contacto</label><input type="text" id="contactoProveedor" class="form-control" /></div>
+              <div class="form-group col-md-4"><label>Teléfono</label><input type="text" id="telefonoProveedor" class="form-control" /></div>
+              <div class="form-group col-md-4"><label>Correo</label><input type="text" id="correoProveedor" class="form-control" /></div>
+            </div>
+            <button onclick="agregarProveedor()" class="btn btn-success">Guardar proveedor</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-sm table-striped" id="tablaProveedores">
+              <thead class="thead-light">
+                <tr>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th>Giro</th>
+                  <th>Contacto</th>
+                  <th>Teléfono</th>
+                  <th>Correo</th>
+                  <th>Editar</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpoProveedores">
+                <!-- Dinámico (localStorage) -->
+              </tbody>
+            </table>
+          </div>
+
+          <small class="text-muted">Ejemplo ficticio inicial precargado y editable.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ======= /CRM PRELH ======= -->
+
 </html>
