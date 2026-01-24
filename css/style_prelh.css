@@ -9613,3 +9613,20 @@ h6,
   font-size: 14px;
   margin-top: 10px;
 }
+
+.icon-circle {
+  width: 64px;
+  height: 64px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.icon-circle img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
