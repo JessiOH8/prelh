@@ -9635,3 +9635,10 @@ h6,
   margin-top: 10px;
 }
 
+.service-icon-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
