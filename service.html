@@ -287,59 +287,112 @@
     				</div>
  				 </div>
 			</div>
-			
-<!-- Carousel Start -->
-    <h6 class="text-secondary text-uppercase text-center font-weight-medium mb-3">Clientes satisfechos</h6>
-    <h1 class="display-4 text-center mb-5">Nuestros trabajos</h1>
-    <div class="container my-5">
-    <div id="trabajos-carousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
+
+<!-- Carrusel de trabajos -->
+	<div class="container-fluid py-5 bg-light">
+
+    <div class="text-center mb-5">
+        <h6 class="text-secondary text-uppercase font-weight-medium">
+            Clientes satisfechos
+        </h6>
+
+        <h1 class="display-4">
+            Nuestros Trabajos
+        </h1>
+    </div>
+
+    <div id="trabajosCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3500">
+
+        <!-- Indicadores -->
+        <ol class="carousel-indicators">
+            <li data-target="#trabajosCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#trabajosCarousel" data-slide-to="1"></li>
+            <li data-target="#trabajosCarousel" data-slide-to="2"></li>
+            <li data-target="#trabajosCarousel" data-slide-to="3"></li>
+        </ol>
+
+        <!-- Imágenes -->
+        <div class="carousel-inner rounded shadow-lg">
+
+            <!-- Imagen 1 -->
             <div class="carousel-item active">
-                <div class="d-flex justify-content-center">
-                    <img src="img/SERV_1.jpg" class="img-fluid rounded" style="max-height: 800px; width: auto;" alt="Trabajo 1">
+                <div class="carousel-overlay"></div>
+
+                <img src="img/SERV_1.jpg"
+                     class="d-block w-100 carousel-img"
+                     alt="Trabajo 1">
+
+                <div class="carousel-caption">
+                    <h3>Instalaciones Eléctricas</h3>
+                    <p>Soluciones profesionales y seguras</p>
                 </div>
             </div>
+
+            <!-- Imagen 2 -->
             <div class="carousel-item">
-                <div class="d-flex justify-content-center">
-                    <img src="img/SERV_2.jpg" class="img-fluid rounded" style="max-height: 800px; width: auto;" alt="Trabajo 2">
+                <div class="carousel-overlay"></div>
+
+                <img src="img/SERV_2.jpg"
+                     class="d-block w-100 carousel-img"
+                     alt="Trabajo 2">
+
+                <div class="carousel-caption">
+                    <h3>Mantenimiento Especializado</h3>
+                    <p>Experiencia y calidad garantizada</p>
                 </div>
             </div>
-	     <div class="carousel-item">
-                <div class="d-flex justify-content-center">
-                    <img src="img/SERV_06.jpg" class="img-fluid rounded" style="max-height: 800px; width: auto;" alt="Trabajo 2">
-                </div>
-            </div>
+
+            <!-- Imagen 3 -->
             <div class="carousel-item">
-                <div class="d-flex justify-content-center">
-                    <img src="img/SERV_07.jpg" class="img-fluid rounded" style="max-height: 800px; width: auto;" alt="Trabajo 2">
+                <div class="carousel-overlay"></div>
+
+                <img src="img/SERV_06.jpg"
+                     class="d-block w-100 carousel-img"
+                     alt="Trabajo 3">
+
+                <div class="carousel-caption">
+                    <h3>Sistemas Fotovoltaicos</h3>
+                    <p>Energía eficiente para el futuro</p>
                 </div>
             </div>
-	    <div class="carousel-item">
-                <div class="d-flex justify-content-center">
-                    <img src="img/SERV_08.jpg" class="img-fluid rounded" style="max-height: 800px; width: auto;" alt="Trabajo 2">
+
+            <!-- Imagen 4 -->
+            <div class="carousel-item">
+                <div class="carousel-overlay"></div>
+
+                <img src="img/SERV_07.jpg"
+                     class="d-block w-100 carousel-img"
+                     alt="Trabajo 4">
+
+                <div class="carousel-caption">
+                    <h3>Pruebas y Diagnóstico</h3>
+                    <p>Precisión y seguridad eléctrica</p>
                 </div>
             </div>
-	   <div class="carousel-item">
-                <div class="d-flex justify-content-center">
-                    <img src="img/SERV_09.jpg" class="img-fluid rounded" style="max-height: 800px; width: auto;" alt="Trabajo 2">
-                </div>
-            </div>
+
         </div>
 
-        <!-- Controles -->
-        <a class="carousel-control-prev" href="#trabajos-carousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
-            <span class="sr-only">Anterior</span>
+        <!-- Flechas -->
+        <a class="carousel-control-prev"
+           href="#trabajosCarousel"
+           role="button"
+           data-slide="prev">
+
+            <span class="carousel-control-prev-icon"></span>
         </a>
-        <a class="carousel-control-next" href="#trabajos-carousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
-            <span class="sr-only">Siguiente</span>
+
+        <a class="carousel-control-next"
+           href="#trabajosCarousel"
+           role="button"
+           data-slide="next">
+
+            <span class="carousel-control-next-icon"></span>
         </a>
+
     </div>
 </div>
-    <!-- Carousel End -->
 
-  <!-- Footer Start -->
+<!-- Footer Start -->
     <div class="container-fluid bg-secondary text-white mt-5 pt-5 px-sm-3 px-md-5">
         <div class="row pt-5">
             <div class="col-lg-3 col-md-6 mb-5">
