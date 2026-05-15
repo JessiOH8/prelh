@@ -9642,3 +9642,11 @@ h6,
   margin-bottom: 15px;
 }
 
+.service-title {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 20px;
+  line-height: 1.4;
+}
+
