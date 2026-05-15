@@ -9650,3 +9650,48 @@ h6,
   line-height: 1.4;
 }
 
+.carousel-img {
+    height: 650px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Overlay oscuro elegante */
+.carousel-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.35);
+    z-index: 1;
+}
+
+/* Texto */
+.carousel-caption {
+    z-index: 2;
+    bottom: 80px;
+}
+
+.carousel-caption h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.carousel-caption p {
+    font-size: 1.1rem;
+}
+
+/* Indicadores */
+.carousel-indicators li {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+/* Flechas */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0,0,0,0.5);
+    padding: 25px;
+    border-radius: 50%;
+}
