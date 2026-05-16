@@ -296,104 +296,105 @@
  				 </div>
 			</div>
 
-<!-- Carrusel de trabajos -->
-	<div class="container-fluid py-5 bg-light">
+<div class="container-fluid py-5 trabajos-showcase">
 
     <div class="text-center mb-5">
         <h6 class="text-secondary text-uppercase font-weight-medium">
             Clientes satisfechos
         </h6>
 
-        <h1 class="display-4">
+        <h1 class="display-4 text-dark font-weight-bold">
             Nuestros Trabajos
         </h1>
     </div>
 
-    <div id="trabajosCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3500">
+    <div id="carouselTrabajos" class="carousel slide" data-ride="carousel" data-interval="3500">
 
-        <!-- Indicadores -->
-        <ol class="carousel-indicators">
-            <li data-target="#trabajosCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#trabajosCarousel" data-slide-to="1"></li>
-            <li data-target="#trabajosCarousel" data-slide-to="2"></li>
-            <li data-target="#trabajosCarousel" data-slide-to="3"></li>
-        </ol>
+        <div class="carousel-inner">
 
-        <!-- Imágenes -->
-        <div class="carousel-inner rounded shadow-lg">
-
-            <!-- Imagen 1 -->
+			 <!-- ITEM 1 -->
             <div class="carousel-item active">
-                <div class="carousel-overlay"></div>
+                <div class="showcase-wrapper">
 
-                <img src="img/SERV_1.jpg"
-                     class="d-block w-100 carousel-img"
-                     alt="Trabajo 1">
+                    <!-- Imagen izquierda -->
+                    <div class="side-image">
+                        <img src="img/SERV_2.jpg" alt="Trabajo lateral">
+                    </div>
 
-                <div class="carousel-caption">
-                    <h3>Instalaciones Eléctricas</h3>
-                    <p>Soluciones profesionales y seguras</p>
+                    <!-- Imagen central -->
+                    <div class="center-image">
+                        <img src="img/SERV_1.jpg" alt="Trabajo principal">
+
+                        <div class="showcase-caption">
+                            <h3>Sistemas Fotovoltaicos</h3>
+                            <p>Instalaciones profesionales y eficientes</p>
+                        </div>
+                    </div>
+
+					 <!-- Imagen derecha -->
+                    <div class="side-image">
+                        <img src="img/SERV_06.jpg" alt="Trabajo lateral">
+                    </div>
+
                 </div>
             </div>
 
-            <!-- Imagen 2 -->
+			<!-- ITEM 2 -->
             <div class="carousel-item">
-                <div class="carousel-overlay"></div>
+                <div class="showcase-wrapper">
 
-                <img src="img/SERV_2.jpg"
-                     class="d-block w-100 carousel-img"
-                     alt="Trabajo 2">
+                    <div class="side-image">
+                        <img src="img/SERV_1.jpg" alt="Trabajo lateral">
+                    </div>
 
-                <div class="carousel-caption">
-                    <h3>Mantenimiento Especializado</h3>
-                    <p>Experiencia y calidad garantizada</p>
-                </div>
-            </div>
+                    <div class="center-image">
+                        <img src="img/SERV_07.jpg" alt="Trabajo principal">
 
-            <!-- Imagen 3 -->
+                        <div class="showcase-caption">
+                            <h3>Pruebas Eléctricas</h3>
+                            <p>Diagnóstico y mantenimiento especializado</p>
+                        </div>
+                    </div>
+
+                    <div class="side-image">
+                        <img src="img/SERV_08.jpg" alt="Trabajo lateral">
+                    </div>
+
+				</div>
+			</div>
+
+			<!-- ITEM 3 -->
             <div class="carousel-item">
-                <div class="carousel-overlay"></div>
+                <div class="showcase-wrapper">
 
-                <img src="img/SERV_06.jpg"
-                     class="d-block w-100 carousel-img"
-                     alt="Trabajo 3">
+                    <div class="side-image">
+                        <img src="img/SERV_06.jpg" alt="Trabajo lateral">
+                    </div>
 
-                <div class="carousel-caption">
-                    <h3>Sistemas Fotovoltaicos</h3>
-                    <p>Energía eficiente para el futuro</p>
-                </div>
-            </div>
+                    <div class="center-image">
+                        <img src="img/SERV_09.jpg" alt="Trabajo principal">
 
-            <!-- Imagen 4 -->
-            <div class="carousel-item">
-                <div class="carousel-overlay"></div>
+                        <div class="showcase-caption">
+                            <h3>Mantenimiento Industrial</h3>
+                            <p>Soluciones eléctricas confiables</p>
+                        </div>
+                    </div>
 
-                <img src="img/SERV_07.jpg"
-                     class="d-block w-100 carousel-img"
-                     alt="Trabajo 4">
+					 <div class="side-image">
+                        <img src="img/SERV_07.jpg" alt="Trabajo lateral">
+                    </div>
 
-                <div class="carousel-caption">
-                    <h3>Pruebas y Diagnóstico</h3>
-                    <p>Precisión y seguridad eléctrica</p>
                 </div>
             </div>
 
         </div>
 
-        <!-- Flechas -->
-        <a class="carousel-control-prev"
-           href="#trabajosCarousel"
-           role="button"
-           data-slide="prev">
-
+		<!-- Flechas -->
+        <a class="carousel-control-prev" href="#carouselTrabajos" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon"></span>
         </a>
 
-        <a class="carousel-control-next"
-           href="#trabajosCarousel"
-           role="button"
-           data-slide="next">
-
+        <a class="carousel-control-next" href="#carouselTrabajos" role="button" data-slide="next">
             <span class="carousel-control-next-icon"></span>
         </a>
 
