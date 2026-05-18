@@ -8,6 +8,7 @@
     <meta content="SERVICIOS" name="keywords">
     <meta content="Proveedora Eléctrica de la Huasteca" name="description">
 	 <link rel="icon" type="image/x-icon" href="img/prelh.ico">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -114,7 +115,9 @@
             </div>
         </div>
     </div>
-    <!-- Page Header Start -->
+    <!-- Page Header End-->
+
+	  <!-- Services Start -->
 <div class="container-fluid pt-5 pb-3">
 	<div class="container">
             <h6 class="text-secondary text-uppercase text-center font-weight-medium mb-3">Lo que ofrecemos</h6>
@@ -127,10 +130,9 @@
       				<!-- FRENTE -->
       					<div class="service-front">
         				<img src="img/PRUEBAS.png" class="service-icon-img">
-        				<h5 class="service-title">Pruebas a transformadores</h5>
-						<div class="service-line"></div>
-      					</div>
-
+        				<h5 class="service-title">Pruebas a Transformadores</h5>
+						</div>
+      					
       				<!-- REVERSO -->
       					<div class="service-back">
         				<h5>Pruebas a Transformadores</h5>
@@ -149,9 +151,8 @@
       				<!-- FRENTE -->
       					<div class="service-front">
         				<img src="img/TRANSFORMADOR.png" class="service-icon-img">
-        				<h5 class="service-title">Mantenimiento a transformadores</h5>
-						<div class="service-line"></div>
-      					</div>
+        				<h5 class="service-title">Mantenimiento a Transformadores</h5>
+						</div>
 
       				<!-- REVERSO -->
       					<div class="service-back">
@@ -171,13 +172,12 @@
       				<!-- FRENTE -->
       					<div class="service-front">
         				<img src="img/DICTAMENES.png" class="service-icon-img">
-        				<h5 class="service-title">Dictámenes de verificación</h5>
-						<div class="service-line"></div>
-      					</div>
+        				<h5 class="service-title">Dictámenes de Verificación</h5>
+						</div>
 
       				<!-- REVERSO -->
       					<div class="service-back">
-        				<h5>Dictámenes de verificación</h5>
+        				<h5>Dictámenes de Verificación</h5>
         				<p>
           				Realización de inspección y dictámenes de verificación.
         				</p>
@@ -193,9 +193,8 @@
       				<!-- FRENTE -->
       					<div class="service-front">
         				<img src="img/CONSTRUCCION.png" class="service-icon-img">
-        				<h5 class="service-title">Construcción y mantenimiento</h5>
-						<div class="service-line"></div>
-      					</div>
+        				<h5 class="service-title">Construcción y Mantenimiento</h5>
+						</div>
 
       				<!-- REVERSO -->
       					<div class="service-back">
@@ -215,8 +214,7 @@
       				<!-- FRENTE -->
       					<div class="service-front">
         				<img src="img/MEDICION.png" class="service-icon-img">
-        				<h5 class="service-title">Análisis termográfico</h5>
-						<div class="service-line"></div>
+        				<h5 class="service-title">Análisis Termográfico</h5>
       					</div>
 
       				<!-- REVERSO -->
@@ -230,15 +228,14 @@
  				 </div>
 			</div>
 
-						<div class="col-lg-3 col-md-6 mb-4">
+				<div class="col-lg-3 col-md-6 mb-4">
   				<div class="service-flip">
     				<div class="service-card">
 
       				<!-- FRENTE -->
       					<div class="service-front">
         				<img src="img/CALIDAD.png" class="service-icon-img">
-        				<h5 class="service-title">Estudio de calidad de la energía </h5>
-						<div class="service-line"></div>
+        				<h5 class="service-title">Estudio de Calidad de la Energía </h5>
       					</div>
 
       				<!-- REVERSO -->
@@ -252,15 +249,14 @@
  				 </div>
 			</div>
 
-						<div class="col-lg-3 col-md-6 mb-4">
+				<div class="col-lg-3 col-md-6 mb-4">
   				<div class="service-flip">
     				<div class="service-card">
 
       				<!-- FRENTE -->
       					<div class="service-front">
         				<img src="img/TIERRAS.png" class="service-icon-img">
-        				<h5 class="service-title">Estudio de sistema de tierras</h5>
-						<div class="service-line"></div>
+        				<h5 class="service-title">Estudio de Sistema de Tierras</h5>
       					</div>
 
       				<!-- REVERSO -->
@@ -274,15 +270,14 @@
  				 </div>
 			</div>
 
-						<div class="col-lg-3 col-md-6 mb-4">
+				<div class="col-lg-3 col-md-6 mb-4">
   				<div class="service-flip">
     				<div class="service-card">
 
       				<!-- FRENTE -->
       					<div class="service-front">
         				<img src="img/REDES.png" class="service-icon-img">
-        				<h5 class="service-title">Redes aéreas y subterraneas</h5>
-						<div class="service-line"></div>
+        				<h5 class="service-title">Redes Aéreas y Subterráneas</h5>
       					</div>
 
       				<!-- REVERSO -->
@@ -296,109 +291,76 @@
  				 </div>
 			</div>
 
-<div class="container-fluid py-5 trabajos-showcase">
+
+			<!-- Carrousel Start -->
+	
+	<div class="container py-5">
 
     <div class="text-center mb-5">
-        <h6 class="text-secondary text-uppercase font-weight-medium">
+
+        <h6 class="text-secondary text-uppercase">
             Clientes satisfechos
         </h6>
 
-        <h1 class="display-4 text-dark font-weight-bold">
+        <h1 class="display-4 font-weight-bold">
             Nuestros Trabajos
         </h1>
+
     </div>
 
-    <div id="carouselTrabajos" class="carousel slide" data-ride="carousel" data-interval="3500">
+    <div class="swiper trabajosSwiper">
 
-        <div class="carousel-inner">
+        <div class="swiper-wrapper">
 
-			 <!-- ITEM 1 -->
-            <div class="carousel-item active">
-                <div class="showcase-wrapper">
+            <!-- Slide -->
+            <div class="swiper-slide">
+                <img src="img/SERV_1.jpg">
 
-                    <!-- Imagen izquierda -->
-                    <div class="side-image">
-                        <img src="img/SERV_2.jpg" alt="Trabajo lateral">
-                    </div>
-
-                    <!-- Imagen central -->
-                    <div class="center-image">
-                        <img src="img/SERV_1.jpg" alt="Trabajo principal">
-
-                        <div class="showcase-caption">
-                            <h3>Sistemas Fotovoltaicos</h3>
-                            <p>Instalaciones profesionales y eficientes</p>
-                        </div>
-                    </div>
-
-					 <!-- Imagen derecha -->
-                    <div class="side-image">
-                        <img src="img/SERV_06.jpg" alt="Trabajo lateral">
-                    </div>
-
+                <div class="slide-caption">
+                    Sistemas Fotovoltaicos
                 </div>
             </div>
 
-			<!-- ITEM 2 -->
-            <div class="carousel-item">
-                <div class="showcase-wrapper">
+            <!-- Slide -->
+            <div class="swiper-slide">
+                <img src="img/SERV_2.jpg">
 
-                    <div class="side-image">
-                        <img src="img/SERV_1.jpg" alt="Trabajo lateral">
-                    </div>
+                <div class="slide-caption">
+                    Pruebas Eléctricas
+                </div>
+            </div>
 
-                    <div class="center-image">
-                        <img src="img/SERV_07.jpg" alt="Trabajo principal">
+            <!-- Slide -->
+            <div class="swiper-slide">
+                <img src="img/SERV_06.jpg">
 
-                        <div class="showcase-caption">
-                            <h3>Pruebas Eléctricas</h3>
-                            <p>Diagnóstico y mantenimiento especializado</p>
-                        </div>
-                    </div>
+                <div class="slide-caption">
+                    Mantenimiento Industrial
+                </div>
+            </div>
 
-                    <div class="side-image">
-                        <img src="img/SERV_08.jpg" alt="Trabajo lateral">
-                    </div>
+            <!-- Slide -->
+            <div class="swiper-slide">
+                <img src="img/SERV_07.jpg">
 
-				</div>
-			</div>
+                <div class="slide-caption">
+                    Calidad de Energía
+                </div>
+            </div>
 
-			<!-- ITEM 3 -->
-            <div class="carousel-item">
-                <div class="showcase-wrapper">
+            <!-- Slide -->
+            <div class="swiper-slide">
+                <img src="img/SERV_08.jpg">
 
-                    <div class="side-image">
-                        <img src="img/SERV_06.jpg" alt="Trabajo lateral">
-                    </div>
-
-                    <div class="center-image">
-                        <img src="img/SERV_09.jpg" alt="Trabajo principal">
-
-                        <div class="showcase-caption">
-                            <h3>Mantenimiento Industrial</h3>
-                            <p>Soluciones eléctricas confiables</p>
-                        </div>
-                    </div>
-
-					 <div class="side-image">
-                        <img src="img/SERV_07.jpg" alt="Trabajo lateral">
-                    </div>
-
+                <div class="slide-caption">
+                    Redes Eléctricas
                 </div>
             </div>
 
         </div>
 
-		<!-- Flechas -->
-        <a class="carousel-control-prev" href="#carouselTrabajos" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </a>
-
-        <a class="carousel-control-next" href="#carouselTrabajos" role="button" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </a>
-
     </div>
+
 </div>
 
 <!-- Footer Start -->
@@ -455,6 +417,42 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+			<script>
+var swiper = new Swiper(".trabajosSwiper", {
+
+    effect: "coverflow",
+
+    grabCursor: true,
+
+    centeredSlides: true,
+
+    slidesPerView: "auto",
+
+    loop: true,
+
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+
+    coverflowEffect: {
+
+        rotate: 0,
+
+        stretch: 0,
+
+        depth: 180,
+
+        modifier: 1.5,
+
+        slideShadows: false,
+    }
+
+});
+</script>
+		
 </body>
 
 </html>
