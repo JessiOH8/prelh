@@ -25,6 +25,8 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+	<link rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 
 <body>
@@ -96,7 +98,26 @@
         </div>
     </div>
     <!-- Navbar End -->
-
+	
+  <!-- Page Header Start -->
+    <div class="page-header container-fluid bg-primary pt-2 pt-lg-4 pb-1 mb-5">
+        <div class="container py-3">
+            <div class="row align-items-center py-4">
+                <div class="col-md-6 text-center text-md-left">
+                    <h1 class="mb-4 mb-md-0 text-white">Cont&aacute;ctanos</h1>
+                </div>
+                <div class="col-md-6 text-center text-md-right">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="btn text-white" href="">Inicio</a>
+                        <i class="fas fa-angle-right text-white"></i>
+                        <a class="btn text-white disabled" href="">Contacto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header Start -->
+	
 <!-- CONTACT SECTION START -->
 <div class="container-fluid py-5 contact-section">
 
@@ -315,47 +336,20 @@
 </div>
 <!-- CONTACT SECTION END -->
 
-<!-- MAPA -->
-<div class="container-fluid pb-5">
-
+<!-- MAPA SUCURSALES -->
+<div class="container-fluid py-5 bg-light">
     <div class="container">
-
-        <div class="map-container shadow-lg">
-
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.2565103117195!2d-97.40054912552088!3d20.950728880679087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d98a94e5dfdb4b%3A0x3ece53bda8257bd7!2sProveedora%20Electrica%20de%20la%20Huasteca!5e1!3m2!1sen!2smx!4v1769111029579!5m2!1sen!2smx"
-                width="100%"
-                height="450"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy">
-            </iframe>
-
+        <div class="text-center mb-5">
+            <h6 class="text-secondary text-uppercase font-weight-bold">
+                Cobertura
+            </h6>
+            <h1 class="display-4 font-weight-bold">
+                Nuestras Sucursales
+            </h1>
         </div>
-
+        <div id="map"></div>
     </div>
-
 </div>
-	
-    <!-- Page Header Start -->
-    <div class="page-header container-fluid bg-primary pt-2 pt-lg-4 pb-1 mb-5">
-        <div class="container py-3">
-            <div class="row align-items-center py-4">
-                <div class="col-md-6 text-center text-md-left">
-                    <h1 class="mb-4 mb-md-0 text-white">Cont&aacute;ctanos</h1>
-                </div>
-                <div class="col-md-6 text-center text-md-right">
-                    <div class="d-inline-flex align-items-center">
-                        <a class="btn text-white" href="">Inicio</a>
-                        <i class="fas fa-angle-right text-white"></i>
-                        <a class="btn text-white disabled" href="">Contacto</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Page Header Start -->
-
 
     <!-- Contact Start -->
     <div class="container-fluid py-5">
@@ -480,6 +474,67 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+	<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+var map = L.map('map').setView([20.5, -97.2], 6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap'
+}).addTo(map);
+/* =========================
+   SUCURSAL TUXPAN
+========================= */
+L.marker([20.9507, -97.4005]).addTo(map)
+.bindPopup(`
+<div class="map-popup">
+    <img src="img/tuxpan.jpg" class="popup-img">
+    <h5>PRELH Tuxpan</h5>
+    <p>
+        Calle 15 de Septiembre #12<br>
+        Col. Centro, Tuxpan, Ver.
+    </p>
+    <p>
+        📞 783 142 8280
+    </p>
+    <p>
+        ✉️ tuxpan@prelh.com
+    </p>
+</div>
+`);
+
+/* =========================
+   MARTÍNEZ
+========================= */
+L.marker([20.0708, -97.0542]).addTo(map)
+.bindPopup(`
+<div class="map-popup">
+    <img src="img/martinez.jpg" class="popup-img">
+    <h5>Martínez de la Torre</h5>
+    <p>
+        Atención comercial y proyectos eléctricos
+    </p>
+    <p>
+        📞 232 112 8020
+    </p>
+</div>
+`);
+
+/* =========================
+   POZA RICA
+========================= */
+L.marker([20.5331, -97.4595]).addTo(map)
+.bindPopup(`
+<div class="map-popup">
+    <img src="img/pozarica.jpg" class="popup-img">
+    <h5>Poza Rica</h5>
+    <p>
+        Servicios eléctricos y ventas
+    </p>
+</div>
+`);
+</script>
+	
 </body>
 
 </html>
