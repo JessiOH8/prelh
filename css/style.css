@@ -9766,14 +9766,6 @@ textarea.custom-input{
     box-shadow: 0 5px 20px rgba(0,0,0,0.08);
 }
 
-.map-container{
-    overflow: hidden;
-    border-radius: 22px;
-}
-
-.map-container iframe{
-    display: block;
-}
 
 /* RESPONSIVE */
 
@@ -9785,3 +9777,37 @@ textarea.custom-input{
 
 }
 
+/* =========================================
+   MAPA INTERACTIVO
+========================================= */
+#map{
+    width: 100%;
+    height: 550px;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+}
+
+/* Popup */
+.map-popup{
+    text-align: center;
+    width: 220px;
+}
+
+.popup-img{
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.map-popup h5{
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.map-popup p{
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
