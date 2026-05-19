@@ -9710,5 +9710,78 @@ h6,
     }
 }
 
-  
+  /* =========================================
+   CONTACTO MODERNO
+========================================= */
+
+.contact-section{
+    background: #f8f9fa;
+}
+
+.contact-service-btn{
+    background: white;
+    padding: 18px;
+    border-radius: 14px;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.contact-service-btn:hover{
+    transform: translateY(-5px);
+    background: #d40000;
+    color: white;
+}
+
+.contact-form-box{
+    background: white;
+    padding: 45px;
+    border-radius: 20px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+}
+
+.custom-input{
+    height: 55px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding-left: 18px;
+    box-shadow: none !important;
+}
+
+textarea.custom-input{
+    height: auto;
+    padding-top: 15px;
+}
+
+.custom-input:focus{
+    border-color: #d40000;
+}
+
+.contact-info-box{
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.map-container{
+    overflow: hidden;
+    border-radius: 22px;
+}
+
+.map-container iframe{
+    display: block;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:991px){
+
+    .contact-form-box{
+        padding: 30px;
+    }
+
+}
 
