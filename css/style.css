@@ -9715,38 +9715,30 @@ h6,
 ========================================= */
 
 .contact-section{
-    padding-bottom:100px;
+    padding-bottom:60px;
     background: #f8f9fa;
 }
 
-.contact-service-btn{
-    background: white;
-    padding: 14px 10px;
-    border-radius: 12px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 0.95rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
-    transition: 0.3s ease;
-    cursor: pointer;
-}
-
-.contact-service-btn:hover{
-    transform: translateY(-3px);
-    background: #d40000;
-    color: white;
+.contact-row{
+  margin-bottom: 100px;
+  align-items: stretch;
 }
 
 .contact-form-box{
-  min-height:650px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  height: 100%;
 }
 
-.contact-visual-box{
-  min-height:650px;
+.contact-form-box h3{
+  font-size: 1.6rem;
+  margin-bottom: 20px !important;
 }
 
 .custom-input{
-    height: 55px;
+    height: 50px;
     border-radius: 12px;
     border: 1px solid #ddd;
     padding-left: 18px;
@@ -9754,7 +9746,8 @@ h6,
 }
 
 textarea.custom-input{
-    height: auto;
+    height: 130pz !important;
+    resize: none;
     padding-top: 15px;
 }
 
@@ -9762,23 +9755,10 @@ textarea.custom-input{
     border-color: #d40000;
 }
 
-.contact-info-box{
-    background: white;
-    padding: 30px;
-    border-radius: 18px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-}
-
-
 /* RESPONSIVE */
 
 @media(max-width:991px){
 
-    .contact-form-box{
-        padding: 30px;
-    }
-
-}
 
 /* =========================
    MAPA SUCURSALES
@@ -9786,8 +9766,8 @@ textarea.custom-input{
 
 #map{
     width: 100%;
-    height: 550px;
-    border-radius: 25px;
+    height: 500px;
+    border-radius: 20px;
     overflow: hidden;
 }
 
@@ -9828,20 +9808,13 @@ textarea.custom-input{
 /* =========================
    CONTACT VISUAL
 ========================= */
-.contact.form.box{
-  background: white;
-  padding: 35px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
 .contact-visual-box{
     position: relative;
-    height: 100%;
-    min-height: 620px;
     border-radius: 25px;
     overflow: hidden;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    height: 100%;
+    min-height: 100%;
+    box-shadow: 0 15px 40px rgba(0,0,0,.15);
 }
 
 .contact-main-img{
@@ -9850,74 +9823,57 @@ textarea.custom-input{
     object-fit: cover;
 }
 
-.custom-input{
-  height: 52px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  padding-left: 18px;
-  box-shadow: none !important;
-}
-
-textarea.custom-input{
-  height: 140px !important;
-  resize: none;
-  padding-top:15px;
-}
-
 .contact-overlay{
     position: absolute;
     inset: 0;
+
     background: linear-gradient(
         to top,
-        rgba(0,0,0,0.85),
-        rgba(0,0,0,0.25)
+        rgba(0,0,0,.88),
+        rgba(0,0,0,.25)
     );
+
+    padding: 30px;
 
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
 
-    padding: 40px;
     color: white;
 }
 
-.contact-overlay h3{
+  .contact-overlay h3{
     font-size: 2rem;
-    font-weight: 700;
+    line-height: 1.15;
     margin-bottom: 15px;
+    color: #fff; /* importante */
 }
 
 .contact-overlay p{
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 30px;
-    opacity: 0.95;
+    font-size: .95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
 /* Stats */
 .contact-stats{
     display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
 .stat-card{
+    flex: 1;
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(8px);
-
-    border-radius: 16px;
-
-    padding: 15px;
-
-    min-width: 100px;
-
+    border-radius: 15px;
+    padding: 12px;
     text-align: center;
 }
 
 .stat-card i{
-    font-size: 1.4rem;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
     color: #ffcc00;
 }
 
@@ -9936,14 +9892,13 @@ textarea.custom-input{
 .whatsapp-btn{
     border-radius: 14px;
     font-weight: 600;
-    padding: 14px 25px;
-    width: fit-content;
+    width: 100%;
 }
 
 .contact-main-title{
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: #222;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
