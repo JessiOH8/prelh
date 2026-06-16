@@ -141,7 +141,7 @@
                     <h3 class="mb-4 font-weight-bold">
                         Solicita una cotización
                     </h3>
-                    <form>
+                    <form action="https://formspree.io/f/mdavjplv" method="POST">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <input type="text"
@@ -150,24 +150,27 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <input type="text"
-                                    class="form-control custom-input"
-                                    placeholder="Empresa">
+									   name="nombre"
+                                       class="form-control custom-input"
+                                       placeholder="Empresa">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <input type="email"
+									   name="correo"
                                     class="form-control custom-input"
                                     placeholder="Correo electrónico">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <input type="text"
-                                    class="form-control custom-input"
+									   name="telefono"
+                                       class="form-control custom-input"
                                     placeholder="Teléfono">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <select class="form-control custom-input">
+                            <select name="servicio"  class="form-control custom-input">
                                 <option selected disabled>
                                     Selecciona un servicio
                                 </option>
@@ -179,7 +182,7 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <textarea
+                            <textarea name="mensaje"
                                 class="form-control custom-input"
                                 rows="4"
                                 placeholder="Escribe tu mensaje"></textarea>
