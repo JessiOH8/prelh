@@ -161,16 +161,23 @@
 <!-- Buscador Star -->
 <section class="shop-search">
     <div class="container">
-		<div class="search-box">
-			
-        	<input type="text"
-            	   id="searchInput"
-              	   placeholder="Buscar producto...">
-			<button>
-				Buscar
-			</button>
+		<div class="shop-search-panel">
+			<label class="search-field mb-0" for="searchInput">
+				<input type="text" id="searchInput" placeholder= "Buscar producto, marca o categoría...">
+				<i class="fas fa-search"></i>
+			</label>
+			<label class="category-select mb-0" for="categorySelect">
+				<select id="categorySelect">
+					<option value="todos">Todas las categorías</option>
+					<option value="media tension">Media Tensión</option>
+					<option value="baja tension">Baja Tensión</option>
+					<option value="redes electricas">Redes Eléctricas</option>
+					<option value="proteccion">Protección</option>
+				</select>
+				<i class="fas fa-chevron-down"></i>
+			</label>
 		</div>
-    </div>
+	</div>
 </section>
 <!-- Buscador End -->
 
@@ -178,57 +185,170 @@
 <section class="shop-categories">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3">
-				<div class="category-card">
-				<i class="fas fa-bolt"></i>
-				<h5>Media Tensión</h5>
-				</div>
+			<div class="col-lg-3 col-sm-6 mb-4">
+				<article class="category-card" data-category-link="media tension">
+					<i class="fas fa-bolt"></i>
+					<h5>Media Tensión</h5>
+					<a href="#productos">Ver productos <i class="fas fa-arrow-right ml-1"></i></a>
+				</article>
 			</div>
-			<div class="col-md-3">
-				<div class="category-card">
+			<div class="col-lg-3 col-sm-6 mb-4">
+				<article class="category-card" data-category-link="baja tension">
 				<i class="fas fa-plug"></i>
 				<h5>Baja Tensión</h5>
+				<a href="#productos">Ver productos <i class="fas fa-arrow-right ml-1"></i></a>
+				</article>
 			</div>
-		</div>
-			<div class="col-md-3">
-				<div class="category-card">
+			<div class="col-lg-3 col-sm-6 mb-4">
+				<article class="category-card" data-category-link="redes electricas">
 				<i class="fas fa-broadcast-tower"></i>
 				<h5>Redes Eléctricas</h5>
-				</div>
+				<a href="#productos">Ver productos <i class="fas fa-arrow-right ml-1"></i></a>
+				</article>
 			</div>
-			<div class="col-md-3">
-				<div class="category-card">
+			<div class="col-lg-3 col-sm-6 mb-4">
+				<article class="category-card" data-category-link="proteccion">
 				<i class="fas fa-shield-alt"></i>
 				<h5>Protección</h5>
-			</div>
+				<a href="#productos">Ver productos <i class="fas fa-arrow-right ml-1"></i></a>
+				</article>
 			</div>
 		</div>
 	</div>
 </section>
 
-<!-- Productos destacados -->
-	<div class="col-lg-4 col-md-6 mb-4">
-		<div class="product-card">
-		<img src="img/ZAPATA1-0.png"
-			 class="product-img">
-				<span class="product-category">
-				Media Tensión
-				</span>
-				<h5>
-				Zapata doble ojillo Cal. 1/0
-				</h5>
-				<p class="product-brand">
-					Marca:Burndy
-				</p>
-				<a href="https://wa.me/5217831428280?text=Hola,%20me%20interesa%20la%20Zapata%20doble%20ojillo"
-				class="btn btn-outline-dark btn-block">
-				<i class="far fa-eye"></i>
-				Ver detalle
-				</a>
-			</div>
-		</div>
-	</div>
-	
+<!-- Productos Start -->
+<section class="featured-products" id="productos">
+        <div class="container">
+            <div class="product-toolbar">
+                <div class="section-title">
+                    <h2>Productos <span>Destacados</span></h2>
+                </div>
+                <div class="filter-tabs" aria-label="Filtros de productos">
+                    <button type="button" class="filter-btn active" data-filter="todos">Todos</button>
+                    <button type="button" class="filter-btn" data-filter="media tension">Media Tensi&oacute;n</button>
+                    <button type="button" class="filter-btn" data-filter="baja tension">Baja Tensi&oacute;n</button>
+                    <button type="button" class="filter-btn" data-filter="redes electricas">Redes El&eacute;ctricas</button>
+                    <button type="button" class="filter-btn" data-filter="proteccion">Protecci&oacute;n</button>
+                </div>
+            </div>
+
+            <div class="row" id="productGrid">
+                <div class="col-lg-3 col-md-6 mb-4 product-item" data-category="media tension" data-search="zapata doble ojillo cal 1/0 burndy media tension">
+                    <article class="product-card">
+                        <div class="product-img-wrap">
+                            <img src="img/ZAPATA1-0.png" class="product-img" alt="Zapata doble ojillo Cal. 1/0">
+                        </div>
+                        <span class="product-category">Media Tensi&oacute;n</span>
+                        <h5>Zapata doble ojillo Cal. 1/0</h5>
+                        <p class="product-brand">Marca: Burndy</p>
+                        <a href="https://wa.me/5217831428280?text=Hola,%20me%20interesa%20la%20Zapata%20doble%20ojillo%20Cal.%201/0" class="btn btn-outline-dark btn-block">
+                            <i class="far fa-eye mr-2"></i>Ver detalle
+                        </a>
+                    </article>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 product-item" data-category="media tension" data-search="codo separable 15kv 200a raychem media tension">
+                    <article class="product-card">
+                        <div class="product-img-wrap">
+                            <img src="img/codo-separable-15kv.png" class="product-img" alt="Codo separable 15kV 200A">
+                        </div>
+                        <span class="product-category">Media Tensi&oacute;n</span>
+                        <h5>Codo separable 15kV 200A</h5>
+                        <p class="product-brand">Marca: Raychem</p>
+                        <a href="https://wa.me/5217831428280?text=Hola,%20me%20interesa%20el%20Codo%20separable%2015kV%20200A" class="btn btn-outline-dark btn-block">
+                            <i class="far fa-eye mr-2"></i>Ver detalle
+                        </a>
+                    </article>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 product-item" data-category="media tension" data-search="fusible tipo expulsion 15kv s&c media tension">
+                    <article class="product-card">
+                        <div class="product-img-wrap">
+                            <img src="img/fusible-expulsion-15kv.png" class="product-img" alt="Fusible tipo expulsi&oacute;n 15kV">
+                        </div>
+                        <span class="product-category">Media Tensi&oacute;n</span>
+                        <h5>Fusible tipo expulsi&oacute;n 15kV</h5>
+                        <p class="product-brand">Marca: S&amp;C</p>
+                        <a href="https://wa.me/5217831428280?text=Hola,%20me%20interesa%20el%20Fusible%20tipo%20expulsion%2015kV" class="btn btn-outline-dark btn-block">
+                            <i class="far fa-eye mr-2"></i>Ver detalle
+                        </a>
+                    </article>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 product-item" data-category="media tension" data-search="apartarrayos polimerico 15kv raychem media tension proteccion">
+                    <article class="product-card">
+                        <div class="product-img-wrap">
+                            <img src="img/apartarrayos-polimerico-15kv.png" class="product-img" alt="Apartarrayos polim&eacute;rico 15kV">
+                        </div>
+                        <span class="product-category">Media Tensi&oacute;n</span>
+                        <h5>Apartarrayos polim&eacute;rico 15kV</h5>
+                        <p class="product-brand">Marca: Raychem</p>
+                        <a href="https://wa.me/5217831428280?text=Hola,%20me%20interesa%20el%20Apartarrayos%20polimerico%2015kV" class="btn btn-outline-dark btn-block">
+                            <i class="far fa-eye mr-2"></i>Ver detalle
+                        </a>
+                    </article>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 product-item" data-category="baja tension" data-search="interruptor termomagnetico 3 polos 100a schneider baja tension">
+                    <article class="product-card">
+                        <div class="product-img-wrap">
+                            <img src="img/interruptor-termomagnetico-3p-100a.png" class="product-img" alt="Interruptor termomagn&eacute;tico 3 Polos 100A">
+                        </div>
+                        <span class="product-category">Baja Tensi&oacute;n</span>
+                        <h5>Interruptor termomagn&eacute;tico 3 Polos 100A</h5>
+                        <p class="product-brand">Marca: Schneider</p>
+                        <a href="https://wa.me/5217831428280?text=Hola,%20me%20interesa%20el%20Interruptor%20termomagnetico%203%20Polos%20100A" class="btn btn-outline-dark btn-block">
+                            <i class="far fa-eye mr-2"></i>Ver detalle
+                        </a>
+                    </article>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 product-item" data-category="baja tension" data-search="contactor 3p 32a bobina 220v schneider baja tension">
+                    <article class="product-card">
+                        <div class="product-img-wrap">
+                            <img src="img/contactor-3p-32a.png" class="product-img" alt="Contactor 3P 32A Bobina 220V">
+                        </div>
+                        <span class="product-category">Baja Tensi&oacute;n</span>
+                        <h5>Contactor 3P 32A Bobina 220V</h5>
+                        <p class="product-brand">Marca: Schneider</p>
+                        <a href="https://wa.me/5217831428280?text=Hola,%20me%20interesa%20el%20Contactor%203P%2032A%20Bobina%20220V" class="btn btn-outline-dark btn-block">
+                            <i class="far fa-eye mr-2"></i>Ver detalle
+                        </a>
+                    </article>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 product-item" data-category="baja tension" data-search="centro de carga qo 8 circuitos square d baja tension">
+                    <article class="product-card">
+                        <div class="product-img-wrap">
+                            <img src="img/centro-carga-qo-8-circuitos.png" class="product-img" alt="Centro de carga QO 8 Circuitos">
+                        </div>
+                        <span class="product-category">Baja Tensi&oacute;n</span>
+                        <h5>Centro de carga QO 8 Circuitos</h5>
+                        <p class="product-brand">Marca: Square D</p>
+                        <a href="https://wa.me/5217831428280?text=Hola,%20me%20interesa%20el%20Centro%20de%20carga%20QO%208%20Circuitos" class="btn btn-outline-dark btn-block">
+                            <i class="far fa-eye mr-2"></i>Ver detalle
+                        </a>
+                    </article>
+                </div>
+				<div class="col-lg-3 col-md-6 mb-4 product-item" data-category="redes electricas" data-search="varilla copperweld 5/8 x 2.44m copperweld redes electricas puesta tierra">
+                    <article class="product-card">
+                        <div class="product-img-wrap">
+                            <img src="img/varilla-copperweld.png" class="product-img" alt="Varilla copperweld 5/8&quot; x 2.44m">
+                        </div>
+                        <span class="product-category">Redes El&eacute;ctricas</span>
+                        <h5>Varilla copperweld 5/8&quot; x 2.44m</h5>
+                        <p class="product-brand">Marca: Copperweld</p>
+                        <a href="https://wa.me/5217831428280?text=Hola,%20me%20interesa%20la%20Varilla%20copperweld%205/8%20x%202.44m" class="btn btn-outline-dark btn-block">
+                            <i class="far fa-eye mr-2"></i>Ver detalle
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 <!-- Banner intermedio -->
 	<section class="catalog-banner">
 		<div class="container">
