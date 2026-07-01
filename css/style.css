@@ -10145,6 +10145,15 @@ textarea.custom-input{
             margin: 0;
         }
 
+        .catalog-hero-img{
+          display: block;
+          height: auto;
+          max-height: 320pz;
+          max-width: 100%
+          object-fit: contain;
+          width: 100%;
+        }
+
 .whatsapp-btn {
             background: #18b957;
             border: 0;
